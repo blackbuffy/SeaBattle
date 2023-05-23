@@ -39,7 +39,6 @@ public class SeaBattle {
         }
         System.out.println("Enter the coordinates of the Aircraft Carrier (5 cells): ");
         String coord = sc.nextLine();
-        char let1 = coord.charAt(0);
         System.out.println(indexOf(field, let1));
     }
 
