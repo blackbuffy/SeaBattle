@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class SeaBattle {
@@ -37,30 +36,107 @@ public class SeaBattle {
             }
             System.out.println("");
         }
-        System.out.println("Enter the coordinates of the Aircraft Carrier (5 cells): ");
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.AC.label, Ships.AC.cells);
         String coord = sc.nextLine();
-        System.out.println(indexOf(field, let1));
+        Ship AC = new Ship(coord, "Aircraft Carrier", 5, field);
+        setShip(AC, field, AC.getRowStart(), AC.getColumnStart(), AC.getRowEnd(), AC.getColumnEnd());
     }
 
-    private static int indexOf(String[][] arr, String str) {
-        int index = 0;
-        if (!str.equals("1") && !str.equals("2") && !str.equals("3") && !str.equals("4") && !str.equals("5") && !str.equals("6") && !str.equals("7") && !str.equals("8") && !str.equals("9")) {
-            for (int i = 0; i < arr.length; i++) {
-                if (arr[i][0].equals(str)) {
-                    index = i;
-                }
+    public static void setShip(Ship ship, String[][] field, int rowStart, int columnStart, int rowEnd, int columnEnd) {
+        boolean isHorizontal = false;
+        if (rowStart == rowEnd) {
+            isHorizontal = true;
+        } else if (columnStart == columnEnd) {
+            isHorizontal = false;
+        } else {
+            System.out.println();
+        }
+    }
+}
+
+enum Ships {
+    AC("Aircraft Carrier", 5), BS("Battleship", 4), SM("Submarine", 3), CR("Cruiser", 3), DS("Destroyer", 2);
+
+    public final String label;
+    public final int cells;
+
+    Ships(String label, int cells) {
+        this.label = label;
+        this.cells = cells;
+    }
+}
+
+class Ship {
+    int rowStart;
+    int columnStart;
+    int rowEnd;
+    int columnEnd;
+    String name;
+    int size;
+    public Ship(String coord, String name, int size, String[][] arr) {
+        this.size = size;
+        this.name = name;
+        String[] coordArr = coord.split(" ");
+        String coordStart = coordArr[0].toString();
+        String coordEnd = coordArr[1].toString();
+
+        String row1 = String.valueOf(coordStart.charAt(0));
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i][0].equals(row1)) {
+                this.rowStart = i;
+            }
+        }
+        if (coordStart.charAt(2) == '0') {
+            for (int i = 0; i < arr[0].length; i++) {
+                this.columnStart = 10;
             }
         } else {
             for (int i = 0; i < arr[0].length; i++) {
-                if (arr[0][i].equals(str)) {
-                    index = i;
+                if (arr[0][i].equals(String.valueOf(coordStart.charAt(1)))) {
+                    this.columnStart = i;
                 }
             }
         }
-        return index;
+
+        String row2 = String.valueOf(coordEnd.charAt(0));
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i][0].equals(row2)) {
+                this.rowEnd = i;
+            }
+        }
+        if (coordEnd.charAt(2) == '0') {
+            for (int i = 0; i < arr[0].length; i++) {
+                this.columnEnd = 10;
+            }
+        } else {
+            for (int i = 0; i < arr[0].length; i++) {
+                if (arr[0][i].equals(String.valueOf(coordEnd.charAt(1)))) {
+                    this.columnEnd = i;
+                }
+            }
+        }
     }
 
-    public static void setShip(String coord, String[][] field) {
-
+    public int getRowStart() {
+        return rowStart;
     }
+
+    public int getColumnStart() {
+        return columnStart;
+    }
+
+    public int getRowEnd() {
+        return rowEnd;
+    }
+
+    public int getColumnEnd() {
+        return columnEnd;
+    }
+}
+
+class WrongShipLocationError extends Exception {
+    public WrongShipLocationError() { super(); }
+    public WrongShipLocationError(String message) { super(message); }
+    public WrongShipLocationError(String message, Throwable cause) { super(message, cause); }
+    public WrongShipLocationError(Throwable cause) { super(cause); }
 }
