@@ -45,42 +45,57 @@ public class SeaBattle {
     public static int setShip(Ship ship, String[][] field, int rowStart, int columnStart, int rowEnd, int columnEnd) {
         int isHorizontal = 0;
         int ret = 0;
-        if (rowStart == rowEnd) {
+        if ((rowStart == rowEnd && columnStart == columnEnd) || (rowStart != rowEnd && columnStart != columnEnd)) {
+            ret = 1;
+            System.out.println("Error! Wrong ship location! Try again: ");
+        } else if (rowStart == rowEnd && columnStart != columnEnd) {
             isHorizontal = 1;
-        } else if (columnStart == columnEnd) {
+        } else if (rowStart != rowEnd && columnStart == columnEnd) {
             isHorizontal = 0;
-        } else {
-            isHorizontal = 2;
         }
-        if (isHorizontal == 0) {
+        if (isHorizontal == 0 && ret != 0) {
             if (rowStart > rowEnd) {
                 if (ship.size != rowStart - rowEnd + 1) {
                     ret = 1;
-                    System.out.println("Error! Wrong length of the Submarine!");
+                    System.out.printf("Error! Wrong length of the %s!", ship.name);
                 }
             } else if (rowEnd > rowStart) {
                 if (ship.size != rowEnd - rowStart + 1) {
                     ret = 1;
-                    System.out.println("Error! Wrong length of the Submarine!");
+                    System.out.printf("Error! Wrong length of the %s!", ship.name);
                 }
+            } else {
+                System.out.printf("Error! Wrong length of the %s!", ship.name);
+                ret = 1;
             }
-        } else if (isHorizontal == 1) {
+        } else if (isHorizontal == 1 && ret != 1) {
             if (columnStart > columnEnd) {
                 if (ship.size != columnStart - columnEnd + 1) {
                     ret = 1;
-                    System.out.println("Error! Wrong length of the Submarine!");
+                    System.out.printf("Error! Wrong length of the %s!", ship.name);
                 }
             } else if (columnEnd > columnStart) {
                 if (ship.size != columnEnd - columnStart + 1) {
                     ret = 1;
-                    System.out.println("Error! Wrong length of the Submarine!");
+                    System.out.printf("Error! Wrong length of the %s!", ship.name);
                 }
+            } else {
+                System.out.printf("Error! Wrong length of the %s!", ship.name);
+                ret = 1;
             }
         }
         if (isHorizontal == 2 && ret == 0) {
             System.out.println("Error! Wrong ship location! Try again: ");
         } else if (isHorizontal == 1 && ret == 0) {
-
+            for (int i = rowStart - 1; i <= rowStart + 1 && ret != 1; i++) {
+                for (int j = columnStart - 1; j <= columnEnd + 1 && ret != 1; j++) {
+                    if (field[i][j] == "O  ") {
+                        ret = 1;
+                        System.out.println("Error! You placed it too close to another one. Try again: ");
+                        break;
+                    }
+                }
+            }
         }
         return ret;
     }
