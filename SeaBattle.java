@@ -2,99 +2,217 @@ import java.util.Scanner;
 
 public class SeaBattle {
     public static void main(String[] args) {
+        // Field initializing
         Scanner sc = new Scanner(System.in);
         String[][] field = new String[11][11];
-        field[0][0] = "   ";
-        field[0][1] = "1  ";
-        field[0][2] = "2  ";
-        field[0][3] = "3  ";
-        field[0][4] = "4  ";
-        field[0][5] = "5  ";
-        field[0][6] = "6  ";
-        field[0][7] = "7  ";
-        field[0][8] = "8  ";
-        field[0][9] = "9  ";
-        field[0][10] = "10  ";
-        field[1][0] = "A  ";
-        field[2][0] = "B  ";
-        field[3][0] = "C  ";
-        field[4][0] = "D  ";
-        field[5][0] = "E  ";
-        field[6][0] = "F  ";
-        field[7][0] = "G  ";
-        field[8][0] = "H  ";
-        field[9][0] = "I  ";
-        field[10][0] = "J  ";
+        field[0][0] = " ";
+        field[0][1] = "1";
+        field[0][2] = "2";
+        field[0][3] = "3";
+        field[0][4] = "4";
+        field[0][5] = "5";
+        field[0][6] = "6";
+        field[0][7] = "7";
+        field[0][8] = "8";
+        field[0][9] = "9";
+        field[0][10] = "10";
+        field[1][0] = "A";
+        field[2][0] = "B";
+        field[3][0] = "C";
+        field[4][0] = "D";
+        field[5][0] = "E";
+        field[6][0] = "F";
+        field[7][0] = "G";
+        field[8][0] = "H";
+        field[9][0] = "I";
+        field[10][0] = "J";
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
-                field[i][j] = "~  ";
+                field[i][j] = "~";
             }
+        }
+        // Printing field
+        for (int k = 0; k <= 10; k++) {
+            for (int x = 0; x <= 10; x++) {
+                System.out.print(field[k][x]);
+                System.out.print(" ");
+            }
+            System.out.println("");
+        }
+        // Asking for AC coord and setting ship
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.AC.label, Ships.AC.cells);
+        String coordAC = sc.nextLine();
+        Ship AC = new Ship(coordAC, Ships.AC.label, Ships.AC.cells, field);
+        int setAC = setShip(AC, field, AC.getRowStart(), AC.getColumnStart(), AC.getRowEnd(), AC.getColumnEnd());
+        while (setAC != 0) {
+            coordAC = sc.nextLine();
+            AC = new Ship(coordAC, "Aircraft Carrier", 5, field);
+            setAC = setShip(AC, field, AC.getRowStart(), AC.getColumnStart(), AC.getRowEnd(), AC.getColumnEnd());
         }
         for (int k = 0; k <= 10; k++) {
             for (int x = 0; x <= 10; x++) {
                 System.out.print(field[k][x]);
+                System.out.print(" ");
             }
             System.out.println("");
         }
-        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.AC.label, Ships.AC.cells);
-        String coord = sc.nextLine();
-        Ship AC = new Ship(coord, "Aircraft Carrier", 5, field);
-        int setAC = setShip(AC, field, AC.getRowStart(), AC.getColumnStart(), AC.getRowEnd(), AC.getColumnEnd());
+        // Asking for BS coord and setting ship
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.BS.label, Ships.BS.cells);
+        String coordBS = sc.nextLine();
+        Ship BS = new Ship(coordBS, Ships.BS.label, Ships.BS.cells, field);
+        int setBS = setShip(BS, field, BS.getRowStart(), BS.getColumnStart(), BS.getRowEnd(), BS.getColumnEnd());
+        while (setBS != 0) {
+            coordBS = sc.nextLine();
+            BS = new Ship(coordBS, Ships.BS.label, Ships.BS.cells, field);
+            setBS = setShip(BS, field, BS.getRowStart(), BS.getColumnStart(), BS.getRowEnd(), BS.getColumnEnd());
+        }
+        for (int k = 0; k <= 10; k++) {
+            for (int x = 0; x <= 10; x++) {
+                System.out.print(field[k][x]);
+                System.out.print(" ");
+            }
+            System.out.println("");
+        }
+        // Asking for SM coord and setting ship
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.SM.label, Ships.SM.cells);
+        String coordSM = sc.nextLine();
+        Ship SM = new Ship(coordSM, Ships.SM.label, Ships.SM.cells, field);
+        int setSM = setShip(SM, field, SM.getRowStart(), SM.getColumnStart(), SM.getRowEnd(), SM.getColumnEnd());
+        while (setSM != 0) {
+            coordSM = sc.nextLine();
+            SM = new Ship(coordSM, Ships.SM.label, Ships.SM.cells, field);
+            setSM = setShip(SM, field, SM.getRowStart(), SM.getColumnStart(), SM.getRowEnd(), SM.getColumnEnd());
+        }
+        for (int k = 0; k <= 10; k++) {
+            for (int x = 0; x <= 10; x++) {
+                System.out.print(field[k][x]);
+                System.out.print(" ");
+            }
+            System.out.println("");
+        }
+        // Asking for CR coord and setting ship
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.CR.label, Ships.CR.cells);
+        String coordCR = sc.nextLine();
+        Ship CR = new Ship(coordCR, Ships.CR.label, Ships.CR.cells, field);
+        int setCR = setShip(CR, field, CR.getRowStart(), CR.getColumnStart(), CR.getRowEnd(), CR.getColumnEnd());
+        while (setCR != 0) {
+            coordCR = sc.nextLine();
+            CR = new Ship(coordCR, Ships.CR.label, Ships.CR.cells, field);
+            setCR = setShip(CR, field, CR.getRowStart(), CR.getColumnStart(), CR.getRowEnd(), CR.getColumnEnd());
+        }
+        for (int k = 0; k <= 10; k++) {
+            for (int x = 0; x <= 10; x++) {
+                System.out.print(field[k][x]);
+                System.out.print(" ");
+            }
+            System.out.println("");
+        }
+        // Asking for DS coord and setting ship
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.DS.label, Ships.DS.cells);
+        String coordDS = sc.nextLine();
+        Ship DS = new Ship(coordDS, Ships.DS.label, Ships.DS.cells, field);
+        int setDS = setShip(DS, field, DS.getRowStart(), DS.getColumnStart(), DS.getRowEnd(), DS.getColumnEnd());
+        while (setDS != 0) {
+            coordDS = sc.nextLine();
+            DS = new Ship(coordDS, Ships.DS.label, Ships.DS.cells, field);
+            setDS = setShip(DS, field, DS.getRowStart(), DS.getColumnStart(), DS.getRowEnd(), DS.getColumnEnd());
+        }
+        for (int k = 0; k <= 10; k++) {
+            for (int x = 0; x <= 10; x++) {
+                System.out.print(field[k][x]);
+                System.out.print(" ");
+            }
+            System.out.println("");
+        }
     }
 
     public static int setShip(Ship ship, String[][] field, int rowStart, int columnStart, int rowEnd, int columnEnd) {
         int isHorizontal = 0;
         int ret = 0;
-        if ((rowStart == rowEnd && columnStart == columnEnd) || (rowStart != rowEnd && columnStart != columnEnd)) {
+        // Checking for error 1: is ship diagonal, and checking for horizontal/vertical
+        if (rowStart != rowEnd && columnStart != columnEnd) {
             ret = 1;
+            isHorizontal = 2;
             System.out.println("Error! Wrong ship location! Try again: ");
         } else if (rowStart == rowEnd && columnStart != columnEnd) {
             isHorizontal = 1;
-        } else if (rowStart != rowEnd && columnStart == columnEnd) {
+        } else if (columnStart == columnEnd && rowStart != rowEnd) {
             isHorizontal = 0;
         }
-        if (isHorizontal == 0 && ret != 0) {
+        // Checking for error 2: wrong length
+        if (isHorizontal == 0 && ret != 1) {
             if (rowStart > rowEnd) {
                 if (ship.size != rowStart - rowEnd + 1) {
                     ret = 1;
-                    System.out.printf("Error! Wrong length of the %s!", ship.name);
+                    System.out.printf("Error! Wrong length of the %s! Try again: ", ship.name);
                 }
             } else if (rowEnd > rowStart) {
                 if (ship.size != rowEnd - rowStart + 1) {
                     ret = 1;
-                    System.out.printf("Error! Wrong length of the %s!", ship.name);
+                    System.out.printf("Error! Wrong length of the %s! Try again: ", ship.name);
                 }
             } else {
-                System.out.printf("Error! Wrong length of the %s!", ship.name);
+                System.out.printf("Error! Wrong length of the %s! Try again: ", ship.name);
                 ret = 1;
             }
         } else if (isHorizontal == 1 && ret != 1) {
             if (columnStart > columnEnd) {
                 if (ship.size != columnStart - columnEnd + 1) {
                     ret = 1;
-                    System.out.printf("Error! Wrong length of the %s!", ship.name);
+                    System.out.printf("Error! Wrong length of the %s! Try again: ", ship.name);
                 }
             } else if (columnEnd > columnStart) {
                 if (ship.size != columnEnd - columnStart + 1) {
                     ret = 1;
-                    System.out.printf("Error! Wrong length of the %s!", ship.name);
+                    System.out.printf("Error! Wrong length of the %s! Try again: ", ship.name);
                 }
             } else {
-                System.out.printf("Error! Wrong length of the %s!", ship.name);
+                System.out.printf("Error! Wrong length of the %s! Try again: ", ship.name);
                 ret = 1;
             }
         }
+        // Checking for error 3: too close to another ship
         if (isHorizontal == 2 && ret == 0) {
             System.out.println("Error! Wrong ship location! Try again: ");
-        } else if (isHorizontal == 1 && ret == 0) {
-            for (int i = rowStart - 1; i <= rowStart + 1 && ret != 1; i++) {
-                for (int j = columnStart - 1; j <= columnEnd + 1 && ret != 1; j++) {
-                    if (field[i][j] == "O  ") {
+        } else if (isHorizontal == 1 && ret != 1) {
+            for (int i = columnStart; i <= columnEnd; i++) {
+                if (field[rowStart][i].equals("A") || field[rowStart][i].equals("B") || field[rowStart][i].equals("C") || field[rowStart][i].equals("D") || field[rowStart][i].equals("E") || field[rowStart][i].equals("F") || field[rowStart][i].equals("G") || field[rowStart][i].equals("H") || field[rowStart][i].equals("I") || field[rowStart][i].equals("J")) {
+                    ret = 1;
+                    System.out.println("Error! You placed it too close to another one. Try again: ");
+                }
+            }
+            for (int i = Math.max(0, rowStart) - 1; i <= Math.min(rowStart + 1, 10) && ret != 1; i++) {
+                for (int j = Math.max(0, columnStart) - 1; j <= Math.min(10, columnEnd + 1) && ret != 1; j++) {
+                    if (field[i][j] == "O") {
                         ret = 1;
                         System.out.println("Error! You placed it too close to another one. Try again: ");
-                        break;
                     }
                 }
+            }
+        } else if (isHorizontal == 0 && ret != 1) {
+            for (int i = rowStart; i <= rowEnd; i++) {
+                if (field[i][columnStart].equals("A") || field[i][columnStart].equals("B") || field[i][columnStart].equals("C") || field[i][columnStart].equals("D") || field[i][columnStart].equals("E") || field[i][columnStart].equals("F") || field[i][columnStart].equals("G") || field[i][columnStart].equals("H") || field[i][columnStart].equals("I") || field[i][columnStart].equals("J")) {
+                    ret = 1;
+                    System.out.println("Error! You placed it too close to another one. Try again: ");
+                }
+            }
+            for (int i = Math.max(0, rowStart) - 1; i <= Math.min(rowStart + 1, 10) && ret != 1; i++) {
+                for (int j = Math.max(0, columnStart) - 1; j <= Math.min(10, columnEnd + 1) && ret != 1; j++) {
+                    if (field[i][j] == "O") {
+                        ret = 1;
+                        System.out.println("Error! You placed it too close to another one. Try again: ");
+                    }
+                }
+            }
+        }
+        // Setting ship
+        if (isHorizontal == 1 && ret == 0) {
+            for (int i = Math.min(columnStart, columnEnd); i <= Math.max(columnEnd, columnStart); i++) {
+                field[rowStart][i] = "O";
+            }
+        } else if (isHorizontal == 0 && ret == 0) {
+            for (int i = Math.min(rowStart, rowEnd); i <= Math.max(rowStart, rowEnd); i++) {
+                field[i][columnStart] = "O";
             }
         }
         return ret;
@@ -133,10 +251,8 @@ class Ship {
                 this.rowStart = i;
             }
         }
-        if (coordStart.charAt(2) == '0') {
-            for (int i = 0; i < arr[0].length; i++) {
-                this.columnStart = 10;
-            }
+        if (coordStart.length() > 2) {
+            this.columnStart = 10;
         } else {
             for (int i = 0; i < arr[0].length; i++) {
                 if (arr[0][i].equals(String.valueOf(coordStart.charAt(1)))) {
@@ -151,10 +267,8 @@ class Ship {
                 this.rowEnd = i;
             }
         }
-        if (coordEnd.charAt(2) == '0') {
-            for (int i = 0; i < arr[0].length; i++) {
-                this.columnEnd = 10;
-            }
+        if (coordEnd.length() > 2) {
+            this.columnEnd = 10;
         } else {
             for (int i = 0; i < arr[0].length; i++) {
                 if (arr[0][i].equals(String.valueOf(coordEnd.charAt(1)))) {
