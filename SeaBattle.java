@@ -1,133 +1,195 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class SeaBattle {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Field initializing
         Scanner sc = new Scanner(System.in);
-        String[][] fogField = new String[11][11];
-        fogField[0][0] = " ";
-        fogField[0][1] = "1";
-        fogField[0][2] = "2";
-        fogField[0][3] = "3";
-        fogField[0][4] = "4";
-        fogField[0][5] = "5";
-        fogField[0][6] = "6";
-        fogField[0][7] = "7";
-        fogField[0][8] = "8";
-        fogField[0][9] = "9";
-        fogField[0][10] = "10";
-        fogField[1][0] = "A";
-        fogField[2][0] = "B";
-        fogField[3][0] = "C";
-        fogField[4][0] = "D";
-        fogField[5][0] = "E";
-        fogField[6][0] = "F";
-        fogField[7][0] = "G";
-        fogField[8][0] = "H";
-        fogField[9][0] = "I";
-        fogField[10][0] = "J";
-        for (int i = 1; i <= 10; i++) {
-            for (int j = 1; j <= 10; j++) {
-                fogField[i][j] = "~";
-            }
-        }
-        String[][] field = new String[11][11];
-        field[0][0] = " ";
-        field[0][1] = "1";
-        field[0][2] = "2";
-        field[0][3] = "3";
-        field[0][4] = "4";
-        field[0][5] = "5";
-        field[0][6] = "6";
-        field[0][7] = "7";
-        field[0][8] = "8";
-        field[0][9] = "9";
-        field[0][10] = "10";
-        field[1][0] = "A";
-        field[2][0] = "B";
-        field[3][0] = "C";
-        field[4][0] = "D";
-        field[5][0] = "E";
-        field[6][0] = "F";
-        field[7][0] = "G";
-        field[8][0] = "H";
-        field[9][0] = "I";
-        field[10][0] = "J";
-        for (int i = 1; i <= 10; i++) {
-            for (int j = 1; j <= 10; j++) {
-                field[i][j] = "~";
-            }
-        }
-        printField(field);
+        Field fogField1 = new Field();
+        Field field1 = new Field();
+        System.out.println("Player 1, place your ships on the game field");
+        printField(field1.field);
+
         // Asking for AC coord and setting ship
         System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.AC.label, Ships.AC.cells);
         String coordAC = sc.nextLine();
-        Ship AC = new Ship(coordAC, Ships.AC.label, Ships.AC.cells, field);
-        int setAC = setShip(AC, field, AC.getRowStart(), AC.getColumnStart(), AC.getRowEnd(), AC.getColumnEnd());
+        Ship AC = new Ship(coordAC, Ships.AC.label, Ships.AC.cells, field1.field);
+        int setAC = setShip(AC, field1.field, AC.getRowStart(), AC.getColumnStart(), AC.getRowEnd(), AC.getColumnEnd());
         while (setAC != 0) {
             coordAC = sc.nextLine();
-            AC = new Ship(coordAC, "Aircraft Carrier", 5, field);
-            setAC = setShip(AC, field, AC.getRowStart(), AC.getColumnStart(), AC.getRowEnd(), AC.getColumnEnd());
+            AC = new Ship(coordAC, Ships.AC.label, Ships.AC.cells, field1.field);
+            setAC = setShip(AC, field1.field, AC.getRowStart(), AC.getColumnStart(), AC.getRowEnd(), AC.getColumnEnd());
         }
-        printField(field);
+        printField(field1.field);
+
         // Asking for BS coord and setting ship
         System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.BS.label, Ships.BS.cells);
         String coordBS = sc.nextLine();
-        Ship BS = new Ship(coordBS, Ships.BS.label, Ships.BS.cells, field);
-        int setBS = setShip(BS, field, BS.getRowStart(), BS.getColumnStart(), BS.getRowEnd(), BS.getColumnEnd());
+        Ship BS = new Ship(coordBS, Ships.BS.label, Ships.BS.cells, field1.field);
+        int setBS = setShip(BS, field1.field, BS.getRowStart(), BS.getColumnStart(), BS.getRowEnd(), BS.getColumnEnd());
         while (setBS != 0) {
             coordBS = sc.nextLine();
-            BS = new Ship(coordBS, Ships.BS.label, Ships.BS.cells, field);
-            setBS = setShip(BS, field, BS.getRowStart(), BS.getColumnStart(), BS.getRowEnd(), BS.getColumnEnd());
+            BS = new Ship(coordBS, Ships.BS.label, Ships.BS.cells, field1.field);
+            setBS = setShip(BS, field1.field, BS.getRowStart(), BS.getColumnStart(), BS.getRowEnd(), BS.getColumnEnd());
         }
-        printField(field);
+        printField(field1.field);
+
         // Asking for SM coord and setting ship
         System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.SM.label, Ships.SM.cells);
         String coordSM = sc.nextLine();
-        Ship SM = new Ship(coordSM, Ships.SM.label, Ships.SM.cells, field);
-        int setSM = setShip(SM, field, SM.getRowStart(), SM.getColumnStart(), SM.getRowEnd(), SM.getColumnEnd());
+        Ship SM = new Ship(coordSM, Ships.SM.label, Ships.SM.cells, field1.field);
+        int setSM = setShip(SM, field1.field, SM.getRowStart(), SM.getColumnStart(), SM.getRowEnd(), SM.getColumnEnd());
         while (setSM != 0) {
             coordSM = sc.nextLine();
-            SM = new Ship(coordSM, Ships.SM.label, Ships.SM.cells, field);
-            setSM = setShip(SM, field, SM.getRowStart(), SM.getColumnStart(), SM.getRowEnd(), SM.getColumnEnd());
+            SM = new Ship(coordSM, Ships.SM.label, Ships.SM.cells, field1.field);
+            setSM = setShip(SM, field1.field, SM.getRowStart(), SM.getColumnStart(), SM.getRowEnd(), SM.getColumnEnd());
         }
-        printField(field);
+        printField(field1.field);
+
         // Asking for CR coord and setting ship
         System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.CR.label, Ships.CR.cells);
         String coordCR = sc.nextLine();
-        Ship CR = new Ship(coordCR, Ships.CR.label, Ships.CR.cells, field);
-        int setCR = setShip(CR, field, CR.getRowStart(), CR.getColumnStart(), CR.getRowEnd(), CR.getColumnEnd());
+        Ship CR = new Ship(coordCR, Ships.CR.label, Ships.CR.cells, field1.field);
+        int setCR = setShip(CR, field1.field, CR.getRowStart(), CR.getColumnStart(), CR.getRowEnd(), CR.getColumnEnd());
         while (setCR != 0) {
             coordCR = sc.nextLine();
-            CR = new Ship(coordCR, Ships.CR.label, Ships.CR.cells, field);
-            setCR = setShip(CR, field, CR.getRowStart(), CR.getColumnStart(), CR.getRowEnd(), CR.getColumnEnd());
+            CR = new Ship(coordCR, Ships.CR.label, Ships.CR.cells, field1.field);
+            setCR = setShip(CR, field1.field, CR.getRowStart(), CR.getColumnStart(), CR.getRowEnd(), CR.getColumnEnd());
         }
-        printField(field);
+        printField(field1.field);
+
         // Asking for DS coord and setting ship
         System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.DS.label, Ships.DS.cells);
         String coordDS = sc.nextLine();
-        Ship DS = new Ship(coordDS, Ships.DS.label, Ships.DS.cells, field);
-        int setDS = setShip(DS, field, DS.getRowStart(), DS.getColumnStart(), DS.getRowEnd(), DS.getColumnEnd());
+        Ship DS = new Ship(coordDS, Ships.DS.label, Ships.DS.cells, field1.field);
+        int setDS = setShip(DS, field1.field, DS.getRowStart(), DS.getColumnStart(), DS.getRowEnd(), DS.getColumnEnd());
         while (setDS != 0) {
             coordDS = sc.nextLine();
-            DS = new Ship(coordDS, Ships.DS.label, Ships.DS.cells, field);
-            setDS = setShip(DS, field, DS.getRowStart(), DS.getColumnStart(), DS.getRowEnd(), DS.getColumnEnd());
+            DS = new Ship(coordDS, Ships.DS.label, Ships.DS.cells, field1.field);
+            setDS = setShip(DS, field1.field, DS.getRowStart(), DS.getColumnStart(), DS.getRowEnd(), DS.getColumnEnd());
         }
-        printField(field);
-        // First shot
-        System.out.println("The game starts!");
-        printField(fogField);
-        System.out.println("Take a shot!");
-        String shotCoord = sc.nextLine();
-        int shot = shoot(shotCoord, fogField, field);
-        infLoop:
-        while (calcO(field) > 0) {
-            shotCoord = sc.nextLine();
-            shot = shoot(shotCoord, fogField, field);
-            if (shot != 0) {
-                while (shot != 0) {
-                    shotCoord = sc.nextLine();
-                    shot = shoot(shotCoord, fogField, field);
+        printField(field1.field);
+
+        System.out.println("Press Enter and pass the move to another player");
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Field fogField2 = new Field();
+        Field field2 = new Field();
+        System.out.println("Player 2, place your ships on the game field");
+        printField(field2.field);
+
+        // AC for player 2
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.AC.label, Ships.AC.cells);
+        String coordAC2 = sc.nextLine();
+        Ship AC2 = new Ship(coordAC2, Ships.AC.label, Ships.AC.cells, field2.field);
+        int setAC2 = setShip(AC2, field2.field, AC2.getRowStart(), AC2.getColumnStart(), AC2.getRowEnd(), AC2.getColumnEnd());
+        while (setAC2 != 0) {
+            coordAC = sc.nextLine();
+            AC2 = new Ship(coordAC, Ships.AC.label, Ships.AC.cells, field2.field);
+            setAC2 = setShip(AC2, field2.field, AC2.getRowStart(), AC2.getColumnStart(), AC2.getRowEnd(), AC2.getColumnEnd());
+        }
+        printField(field2.field);
+
+        // BS for player 2
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.BS.label, Ships.BS.cells);
+        String coordBS2 = sc.nextLine();
+        Ship BS2 = new Ship(coordBS2, Ships.BS.label, Ships.BS.cells, field2.field);
+        int setBS2 = setShip(BS2, field2.field, BS2.getRowStart(), BS2.getColumnStart(), BS2.getRowEnd(), BS2.getColumnEnd());
+        while (setBS2 != 0) {
+            coordBS = sc.nextLine();
+            BS2 = new Ship(coordBS, Ships.BS.label, Ships.BS.cells, field2.field);
+            setBS2 = setShip(AC2, field2.field, BS2.getRowStart(), BS2.getColumnStart(), BS2.getRowEnd(), BS2.getColumnEnd());
+        }
+        printField(field2.field);
+
+        // SM for player 2
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.SM.label, Ships.SM.cells);
+        String coordSM2 = sc.nextLine();
+        Ship SM2 = new Ship(coordSM2, Ships.SM.label, Ships.SM.cells, field2.field);
+        int setSM2 = setShip(SM2, field2.field, SM2.getRowStart(), SM2.getColumnStart(), SM2.getRowEnd(), SM2.getColumnEnd());
+        while (setSM2 != 0) {
+            coordSM2 = sc.nextLine();
+            SM2 = new Ship(coordSM2, Ships.SM.label, Ships.SM.cells, field2.field);
+            setSM2 = setShip(SM2, field2.field, SM2.getRowStart(), SM2.getColumnStart(), SM2.getRowEnd(), SM2.getColumnEnd());
+        }
+        printField(field2.field);
+
+        // CR for player 2
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.CR.label, Ships.CR.cells);
+        String coordCR2 = sc.nextLine();
+        Ship CR2 = new Ship(coordCR2, Ships.CR.label, Ships.CR.cells, field2.field);
+        int setCR2 = setShip(CR2, field2.field, CR2.getRowStart(), CR2.getColumnStart(), CR2.getRowEnd(), CR2.getColumnEnd());
+        while (setCR2 != 0) {
+            coordCR2 = sc.nextLine();
+            CR2 = new Ship(coordCR2, Ships.CR.label, Ships.CR.cells, field2.field);
+            setCR2 = setShip(CR2, field2.field, CR2.getRowStart(), CR2.getColumnStart(), CR2.getRowEnd(), CR2.getColumnEnd());
+        }
+        printField(field2.field);
+
+        // DS for player 2
+        System.out.printf("Enter the coordinates of the %s (%d cells): ", Ships.DS.label, Ships.DS.cells);
+        String coordDS2 = sc.nextLine();
+        Ship DS2 = new Ship(coordDS2, Ships.DS.label, Ships.DS.cells, field2.field);
+        int setDS2 = setShip(DS2, field2.field, DS2.getRowStart(), DS2.getColumnStart(), DS2.getRowEnd(), DS2.getColumnEnd());
+        while (setDS2 != 0) {
+            coordDS2 = sc.nextLine();
+            DS2 = new Ship(coordDS2, Ships.DS.label, Ships.DS.cells, field2.field);
+            setDS2 = setShip(DS2, field2.field, DS2.getRowStart(), DS2.getColumnStart(), DS2.getRowEnd(), DS2.getColumnEnd());
+        }
+        printField(field2.field);
+
+        System.out.println("Press Enter and pass the move to another player");
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int turn = 1;
+        int shot = 0;
+        gameLoop:
+        while (true) {
+            if (turn == 1) {
+                if (calcO(field2.field) == 0) {
+                    System.out.println("You sank the last ship. You won. Congratulations!");
+                    break gameLoop;
+                } else if (shot == 0) {
+                    printField(fogField2.field);
+                    System.out.println("---------------------");
+                    printField(field1.field);
+                    System.out.println("Player 1, it's your turn: ");
+                    String shotCoord = sc.nextLine();
+                    shot = shoot(shotCoord, fogField2.field, field2.field);
+                    System.out.println("Press Enter and pass the move to another player");
+                    try {
+                        System.in.read();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    turn = 2;
+                }
+            } else if (turn == 2) {
+                if (calcO(field1.field) == 0) {
+                    System.out.println("You sank the last ship. You won. Congratulations!");
+                    break gameLoop;
+                } else if (shot == 0) {
+                    printField(fogField1.field);
+                    System.out.println("---------------------");
+                    printField(field2.field);
+                    System.out.println("Player 2, it's your turn: ");
+                    String shotCoord = sc.nextLine();
+                    shot = shoot(shotCoord, fogField1.field, field1.field);
+                    System.out.println("Press Enter and pass the move to another player");
+                    try {
+                        System.in.read();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    turn = 1;
                 }
             }
         }
@@ -391,5 +453,44 @@ class Ship {
 
     public int getColumnEnd() {
         return columnEnd;
+    }
+}
+
+class Field {
+    String[][] field = new String[11][11];
+
+    public Field() {
+        this.field = fillField();
+    }
+
+    public static String[][] fillField() {
+        String[][] field = new String[11][11];
+        field[0][0] = " ";
+        field[0][1] = "1";
+        field[0][2] = "2";
+        field[0][3] = "3";
+        field[0][4] = "4";
+        field[0][5] = "5";
+        field[0][6] = "6";
+        field[0][7] = "7";
+        field[0][8] = "8";
+        field[0][9] = "9";
+        field[0][10] = "10";
+        field[1][0] = "A";
+        field[2][0] = "B";
+        field[3][0] = "C";
+        field[4][0] = "D";
+        field[5][0] = "E";
+        field[6][0] = "F";
+        field[7][0] = "G";
+        field[8][0] = "H";
+        field[9][0] = "I";
+        field[10][0] = "J";
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                field[i][j] = "~";
+            }
+        }
+        return field;
     }
 }
